@@ -25,7 +25,7 @@ class Horses
 	def move_spaces *horse
 		if location < 150
 			self.location += rand(5..15)
-			input = gets
+			input = gets.chomp
 		else
 			self.location = 150
 		end
