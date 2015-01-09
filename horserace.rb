@@ -1,40 +1,36 @@
 class Horses
 	attr_accessor :name
 	attr_accessor :location
+	attr_accessor :speed
 	
 	def initialize
 		self.name = "Horse1"
 		self.location = 0
+		self.speed = 1
 	end
 
 	def display_information
 		"#{self.name} #{location}"
 	end
 
-
-	# def add_horse a
-	# 	horses.push(horses.pop)
-	# 	horses.shuffle
-	# 	a.times do |nay|
-	# 		horses.push(horses.pop)
-	# 	end
-	# end
-
 	def move_spaces *horse
+		
 		if location < 150
-			self.location += rand(5..15)
-			input = gets.chomp
+			self.location += (rand(5..15) * self.speed)
 		else
 			self.location = 150
 		end
-		if input == "cheat"
-			self.location += 25
-		end	
-		# add if statement that says if a horse's location is >= 150, that horse wins the race.
+		# add if statement that says if a horse's location is >= 150, 
+		# that horse wins the race and breaks out of the loop running the program.
 		if location >= 150
-			puts "#{name} won the race!"
+			puts "#{self.name.capitalize} won the race!"
 		end
 	end
+
+	def cheat_spaces *horses
+		self.location += 25
+	end
+
 end
 
 
@@ -51,8 +47,8 @@ class Track
 	end
 
 	def builder horses
-		system("clear")
-		horses.each_with_index do |n|
+			system("clear")
+			horses.each do |n|
 			puts 
 			self.length.times do
 				print "-"
@@ -69,23 +65,29 @@ class Track
 		end
 		puts
 		puts
-		print "#{horses[0].name.capitalize} is at #{horses[0].location}		"
-		print "#{horses[1].name.capitalize} is at #{horses[1].location}		"
-		print "#{horses[2].name.capitalize} is at #{horses[2].location}		"
-		puts "#{horses[3].name.capitalize} is at #{horses[3].location}"
+		horses.each do |x|
+			print "#{x.name.capitalize} is at #{x.location}.     ||  "
+		end
+		puts
+
 	end
 end
 
-
-stall = []
-
 horses = []
+winning_horses = []
+winning_locations = []
 horses_names = ["santa","frank","ellen","marky","snark","funky","dunky","bumpy","ixion","clyde"]
 
 
-num_of_horses = 4
+new_track = Track.new
 
-4.times do |horsey|
+puts "How many horses are competing? Choose between 2 and 8."
+horse_num = gets.chomp.to_i
+puts "How long do you want your track? Choose between 75-150."
+new_track_length = gets.chomp.to_i
+new_track.length = new_track_length
+
+horse_num.times do |horsey|
 		new_horse = Horses.new
 		new_horse.name = horses_names.pop
 		horses.push(new_horse)
@@ -93,16 +95,49 @@ num_of_horses = 4
 	end
 
 
-new_track = Track.new
-while horses[0].location < 150 && 
-		horses[1].location < 150 && 
-		horses[2].location < 150 && 
-		horses[3].location
+puts "Your horse is Clyde"
+puts "Press enter to continue"
+input = gets.chomp.downcase
+if input == "cheat"
+	puts "Enter a number: "
+	horses[0].speed = gets.chomp.to_i
+end
+
+
+new_track.builder(horses)
+
+while horses[0].location < new_track.length && 
+		horses[1].location < new_track.length && 
+		horses[2].location < new_track.length && 
+		horses[3].location < new_track.length
+		new_track.builder(horses)
+
 			horses.each do |i|
 			i.move_spaces
 		end
-new_track.builder(horses)
+		
+		sleep(0.5)
 end
+
+horses.each do |i|
+	if i.location == new_track.length || new_track.length < i.location
+		winning_locations.push(i.location)
+		i.location = new_track.length
+		new_track.builder(horses)
+		winning_horses.push(i.name.capitalize)
+	end
+end
+
+if winning_horses.length > 1
+	locator = winning_locations.index(winning_locations.max)	
+	puts "There is a tie! Very close race..."
+	# sleep(1)
+	puts winning_horses[locator]
+else
+	puts "The winner is: "
+	puts winning_horses
+end
+
 
 
 
@@ -114,13 +149,7 @@ end
 
 
 
-# Clyde = Horses.new
-# Clyde.color = "brown" 
-# Clyde.name = "Clyde"
-
-# Clyde.move_spaces
-# Clyde.cheat
 
 
 
-# @@ class variables only can be used inside of class
+
