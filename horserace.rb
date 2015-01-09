@@ -6,7 +6,7 @@ class Horses
 	def initialize
 		self.name = "Horse1"
 		self.location = 0
-		self.speed = 1
+		self.speed = 2
 	end
 
 	def display_information
@@ -15,11 +15,7 @@ class Horses
 
 	def move_spaces *horse
 		
-		if location < 150
-			self.location += (rand(5..15) * self.speed)
-		else
-			self.location = 150
-		end
+		self.location += ((rand(1..3) * self.speed) - 1) 
 		# add if statement that says if a horse's location is >= 150, 
 		# that horse wins the race and breaks out of the loop running the program.
 		if location >= 150
@@ -83,6 +79,15 @@ new_track = Track.new
 
 puts "How many horses are competing? Choose between 2 and 8."
 horse_num = gets.chomp.to_i
+horse_number = horse_num
+
+until horse_num > 1 && horse_num < 9 && horse_num.class == Fixnum
+puts "Please enter a valid answer."
+puts "How many horses are competing? Choose between 2 and 8."
+horse_num = gets.chomp.to_i
+horse_number = horse_num
+end
+
 puts "How long do you want your track? Choose between 75-150."
 new_track_length = gets.chomp.to_i
 new_track.length = new_track_length
@@ -99,10 +104,16 @@ puts "Your horse is Clyde"
 puts "Press enter to continue"
 input = gets.chomp.downcase
 if input == "cheat"
-	puts "Enter a number: "
-	horses[0].speed = gets.chomp.to_i
+	
+	horses[0].speed *= 3 
 end
-
+	if input == "slow down"
+	horses.each do |x|
+		x.speed = 1
+	end 
+	horses[0].speed = 2
+end
+	
 
 new_track.builder(horses)
 
@@ -116,7 +127,7 @@ while horses[0].location < new_track.length &&
 			i.move_spaces
 		end
 		
-		sleep(0.5)
+		sleep(0.1)
 end
 
 horses.each do |i|
@@ -130,11 +141,12 @@ end
 
 if winning_horses.length > 1
 	locator = winning_locations.index(winning_locations.max)	
-	puts "There is a tie! Very close race..."
-	# sleep(1)
-	puts winning_horses[locator]
+	puts "Very close race..."
+	puts 
+	print winning_horses[locator]
+	puts " is the winner"
 else
-	puts "The winner is: "
+	puts "The winning horse is: "
 	puts winning_horses
 end
 
