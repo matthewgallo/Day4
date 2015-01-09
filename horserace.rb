@@ -1,16 +1,14 @@
 class Horses
-	attr_accessor :color
 	attr_accessor :name
 	attr_accessor :location
 	
 	def initialize
-		self.color = "color"
 		self.name = "Horse1"
 		self.location = 0
 	end
 
 	def display_information
-		"#{self.color} #{self.name} #{location}"
+		"#{self.name} #{location}"
 	end
 
 
@@ -32,9 +30,13 @@ class Horses
 		if input == "cheat"
 			self.location += 25
 		end	
-		
+		# add if statement that says if a horse's location is >= 150, that horse wins the race.
+		if location >= 150
+			puts "#{name} won the race!"
+		end
 	end
 end
+
 
 
 
@@ -89,12 +91,16 @@ num_of_horses = 4
 		horses.push(new_horse)
 		horses_names = horses_names.shuffle
 	end
-# puts horses.names
+
+
 new_track = Track.new
-while horses[0].location < 150 && horses[1].location < 150 && horses[2].location < 150 && horses[3].location
-horses.each do |i|
-	i.move_spaces
-end
+while horses[0].location < 150 && 
+		horses[1].location < 150 && 
+		horses[2].location < 150 && 
+		horses[3].location
+			horses.each do |i|
+			i.move_spaces
+		end
 new_track.builder(horses)
 end
 
