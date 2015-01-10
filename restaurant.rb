@@ -1,12 +1,24 @@
-puts "Thank you for dining with us tonight."
-puts
+puts "Welcome to..."
+puts "
+                                                               
+                                                               
+.---..          --.--               .--.                       
+  |  |            |                 |   )                      
+  |  |--. .-.     |  .--..-. .--.   |--: .  . .--..-.. .-. .--.
+  |  |  |(.-'     |  |  (   )|  |   |   )|  | |  (   |(.-' |   
+  '  '  `-`--'  --'--'   `-' '  `-  '--' `--`-'   `-`| `--''   
+                                                  ._.'         
+                                                                                                                        
+"
 puts
 
 class Menu
 	attr_accessor :menu_data
+	attr_accessor :user_menu_data
 
 	def initialize
 		self.menu_data = []
+		self.user_menu_data = []
 	end
 
 	def add_item item
@@ -20,40 +32,56 @@ class Menu
 
 	end
 
-	def populate_menu
+	def populate_user_menu
 		
-		new_item= Item.new
+		new_item = Item.new
 		keep_populating = true
 		while keep_populating
 			puts "Our current menu:"
 			puts
 			self.menu_data.each do |i|
 				puts i.name
+				print "\s\s\s"
+				puts i.description
 				print "\s\s\s$"
 				puts i.price
+
 			end
-			puts "Name:"
+			# would you like to add to your order? if yes loop this if not, puts your order is...
+			
+				puts "Would you like to add to your order? Yes or no."
+				response = gets.chomp.downcase
+				eater_response = response
+
+			if response != "yes" || response != "no"
+					puts "Enter a valid response."
+					puts "Please enter yes or no."
+					response = gets.chomp.downcase
+					eater_response = response
+			end
+				until response == 'no'	
+					puts "What would you like to order from the menu?"
+					answer = self.user_menu_data.push(gets.chomp.downcase)
+					puts "Your order includes #{user_menu_data}."
+					puts "Would you like to add to your order? Yes or no."
+					response = gets.chomp.downcase
+						puts "Your total order is a #{user_menu_data}."
+				end
+
 			new_item.name = gets.chomp
-			puts "Price:"
-			new_item.price = gets.chomp
-			puts "Description:"
-			new_item.description = gets.chomp
-			puts "Category: 0 = Appetizers, 1 = entree, 2 = desserts, 3 = drinks:"
-			new_item.category = gets.chomp
-			self.add_item(new_item)
-			puts "Do you want to add another item to the menu? Yes or no."
-			answer = gets.chomp.downcase
-			if answer == 'no'
-				puts "Our current menu:"
-				self.menu_data.each do |i|
-				puts i.name
-				puts i.price
-			end
-				puts "Press enter to continue:"
+			
+			# if response == 'no'
+			# 	puts "Your order items:"
+			# 	self.user_menu_data.each do |i|
+			# 	puts i.name
+			# 	puts i.price
+			# end
+				puts "Press enter to confirm your order and continue:"
 				keep_populating = false
 				gets
-			end
+			
 		end
+		puts user_menu_data
 
 	end
 end
@@ -72,67 +100,74 @@ class Item
 	end
 end
 
-new_menu = Menu.new
+user_order = Menu.new
 
-chicken = Item.new
-chicken.name = "Chicken"
-chicken.price = 7.99
-chicken.description = "Tasty chicken"
-chicken.category = 1
-new_menu.add_item(chicken)
+burger = Item.new
+burger.name = "Cheeseburger"
+burger.price = 7.99
+burger.description = "Tasty chesseburger!"
+burger.category = 1
+user_order.add_item(burger)
 
 cheesesteak = Item.new
 cheesesteak.name = "Cheesesteak"
 cheesesteak.price = 8.99
 cheesesteak.description = "Delicious Philly style cheesesteak."
 cheesesteak.category = 1
-new_menu.add_item(cheesesteak)
+user_order.add_item(cheesesteak)
+
+salad = Item.new
+salad.name = "Salad"
+salad.price = 6.99
+salad.description = "Fresh salad."
+salad.category = 0
+user_order.add_item(salad)
 
 french_fries = Item.new
 french_fries.name = "French Fries"
 french_fries.price = 3.99
-french_fries.description = "Our hand-cut french fries"
+french_fries.description = "Our hand-cut french fries."
 french_fries.category = 0
-new_menu.add_item(french_fries)
+user_order.add_item(french_fries)
 
 cheesecake = Item.new
 cheesecake.name = "Cheescake"
 cheesecake.price = 5.99
 cheesecake.description = "New York style cheesecake, homemade!"
 cheesecake.category = 2
-new_menu.add_item(cheesecake)
+user_order.add_item(cheesecake)
 
 beer = Item.new
 beer.name = "Craft Beer"
 beer.price = 3
 beer.description = "Locally brewed craft beer."
 beer.category = 3
-new_menu.add_item(beer)
+user_order.add_item(beer)
 
 water = Item.new
 water.name = "Water"
 water.price = "0.50"
 water.description = "Ice cold water."
 water.category = 3
-new_menu.add_item(water)
+user_order.add_item(water)
 
 
 
 
 
-new_menu.populate_menu
+user_order.populate_user_menu
 
 
-new_menu.menu_data.each do |i|
-	puts i.name
-	puts i.price
-	puts i.description
-			end
+# user_order.menu_data.each do |i|
+# 	puts i.name
+# 	puts i.price
+# 	puts i.description
+# 			end
 
 
 
 
-# remove_item
+
 
 
 

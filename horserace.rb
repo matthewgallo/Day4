@@ -127,7 +127,7 @@ while horses[0].location < new_track.length &&
 			i.move_spaces
 		end
 		
-		sleep(0.1)
+		sleep(0.15)
 end
 
 horses.each do |i|
