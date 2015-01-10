@@ -141,12 +141,15 @@ end
 
 if winning_horses.length > 1
 	locator = winning_locations.index(winning_locations.max)	
+	puts
 	puts "Very close race..."
 	puts 
 	print winning_horses[locator]
 	puts " is the winner"
 else
+	puts
 	puts "The winning horse is: "
+	puts
 	puts winning_horses
 end
 
