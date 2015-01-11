@@ -21,7 +21,7 @@ class Menu
 		self.user_menu_data = []
 	end
 
-	def add_item item
+	def add_item *item
 		self.menu_data.push(item) 
 	end
 
