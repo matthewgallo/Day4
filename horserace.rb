@@ -33,12 +33,10 @@ end
 
 
 class Track
-	attr_accessor :stalls
 	attr_accessor :length
 
 
 	def initialize
-		self.stalls = 4
 		self.length = 150
 	end
 
