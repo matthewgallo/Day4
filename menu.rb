@@ -70,7 +70,7 @@ item3 = {
 }
 
 menu_current.add_item(item1, item2, item3)
-
+puts menu_current
 
 
 
@@ -88,7 +88,7 @@ menu_current.create_order
 
 
 
-p menu_current.menu_data
+# p menu_current.menu_data
 
 
 

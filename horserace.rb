@@ -155,11 +155,6 @@ end
 
 
 
-# horses.each do |i|
-# 	i = Horses.new
-# 	i.name = "#{i}"
-# end
-
 
 
 
